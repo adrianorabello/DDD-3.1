@@ -117,25 +117,27 @@ Defina **2–4 eventos** com **payload mínimo** e **momento de publicação** (
 **Exemplo de esqueleto Mermaid:**
 ```mermaid
 classDiagram
-  class [AgregadoPrincipal] {
+  class AgregadoPrincipal {
     +Guid Id
-    +[OutroAgregado]Id
-    +[VOImportante] Valor
-    +[Status] Estado
-    +[Operacao1](args)
-    +[Operacao2](args)
+    +Guid OutroAgregadoId
+    +VOImportante Valor
+    +Status Estado
+    +Operacao1(args)
+    +Operacao2(args)
   }
 
-  class [VOImportante] {
-    +[Atributo1]
-    +[Atributo2]
-    +[OperacaoVO]()
+  class VOImportante {
+    +Atributo1
+    +Atributo2
+    +OperacaoVO()
   }
 
-  class [OutroAgregado] { +Guid Id }
+  class OutroAgregado {
+    +Guid Id
+  }
 
-  [AgregadoPrincipal] --> [OutroAgregado] : por Id
-  [AgregadoPrincipal] --> [VOImportante]
+  AgregadoPrincipal --> OutroAgregado : por Id
+  AgregadoPrincipal --> VOImportante
 ```
 
 ---
@@ -176,3 +178,40 @@ classDiagram
 - “**Uma transação, um agregado**” → consistência local.  
 - “**Regra perto dos dados**” → domínio rico.  
 - “**O que pode esperar**?” → evento + consistência eventual.
+
+
+
+> **Dicas para Mermaid no GitHub**
+> - Não use **colchetes `[]`** nos nomes das classes/tipos.
+> - Evite espaços: use **CamelCase** ou **snake_case**.
+> - Mantenha o bloco cercado por crases com a linguagem **mermaid**.
+> - Alternativa se preferir um diagrama mais simples:
+>
+> ```mermaid
+> flowchart TB
+>   AR[AgregadoPrincipal (AR)]
+>   OA[OutroAgregado]
+>   VO[VOImportante]
+>   AR -->|ref por Id| OA
+>   AR --> VO
+> ```
+>
+> Ou modelo ER:
+>
+> ```mermaid
+> erDiagram
+>   AGREGADOPRINCIPAL ||--o{ VOIMPORTANTE : "contém"
+>   AGREGADOPRINCIPAL }o--|| OUTROAGREGADO : "ref por Id"
+>   AGREGADOPRINCIPAL {
+>     GUID Id
+>     GUID OutroAgregadoId
+>     STRING Estado
+>   }
+>   VOIMPORTANTE {
+>     STRING Atributo1
+>     STRING Atributo2
+>   }
+>   OUTROAGREGADO {
+>     GUID Id
+>   }
+> ```
