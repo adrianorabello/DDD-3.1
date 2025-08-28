@@ -150,31 +150,9 @@ classDiagram
 - [ ] **Eventos** definidos, publicados **pós-commit**, handlers idempotentes.
 - [ ] Estratégia de **consistência entre agregados** escolhida e **defendida**.
 
----
-
-## 📝 Rubrica de Avaliação (sugestão)
-| Critério | Peso |
-|---|---|
-| Entidades vs VOs (imutabilidade, igualdade por valor, justificativas) | **2.0** |
-| Boundary do agregado principal (coerência, tamanho, IDs externos) | **2.0** |
-| Invariantes e máquina de estados | **2.0** |
-| Repositório focado na AR (sem vazamentos de infra) | **1.5** |
-| Eventos de Domínio (nomes, payload mínimo, pós-commit, idempotência) | **1.5** |
-| Estratégia de consistência (trade-offs, riscos e mitigação) | **1.0** |
-
-**Nota máxima: 10,0**
-
----
 
 ## 📤 Entrega
-- **Arquivo**: `trabalho-ddd-design-tatico-{seu-nome}.md`
-- **Inclua**: link/imagem do **diagrama** + todas as seções acima preenchidas.
-- **Prazo**: **[definido pelo professor]**
 
+- **Inclua**: link/imagem do **diagrama** + todas as seções acima preenchidas.
 ---
 
-## 💡 Dicas Rápidas
-- “**Igual** não é **o mesmo**” → VO ≠ Entidade.  
-- “**Uma transação, um agregado**” → consistência local.  
-- “**Regra perto dos dados**” → domínio rico.  
-- “**O que pode esperar**?” → evento + consistência eventual.
