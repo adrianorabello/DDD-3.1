@@ -86,21 +86,10 @@ public interface I[Agregado]Repository
 }
 ```
 
----
-
-## 🔄 6) Estratégia para Consistência entre Agregados
-Escolha **uma** (ou combine) e **justifique trade-offs**:
-
-- **A. Índice Único** no armazenamento (ex.: `(RecursoId, Inicio, Fim)`): simples, performático; requer _retry_ com **concorrência otimista**.
-- **B. Agregado Guardião** (ex.: `AgendaDoRecurso`): concentra regras de overlap; invariantes fortes; risco de contenção; pode exigir particionamento por período.
-- **C. Serviço de Domínio + Outbox/Projeções**: validação orquestrada, consistência eventual; complexidade operacional (idempotência, retries).
-
-**Decisão escolhida:** **[A/B/C]**  
-**Justificativa curta:** **[Por quê essa? Quando pode falhar? Plano de mitigação?]**
 
 ---
 
-## 📣 7) Eventos de Domínio
+## 📣 6) Eventos de Domínio
 Defina **2–4 eventos** com **payload mínimo** e **momento de publicação** (preferir **pós-commit**). Diferencie **evento interno** vs **evento de integração**.
 
 | Evento | Quando ocorre | Payload mínimo | Interno/Integração | Observações |
@@ -147,8 +136,6 @@ classDiagram
 - [ ] **Boundary do agregado** pequeno e com **invariantes claras**.
 - [ ] **Domínio rico**: operações do negócio como métodos (evitar `set` aberto).
 - [ ] **Repositório** focado na **AR** (sem `IQueryable`/detalhes de ORM no domínio).
-- [ ] **Eventos** definidos, publicados **pós-commit**, handlers idempotentes.
-- [ ] Estratégia de **consistência entre agregados** escolhida e **defendida**.
 
 
 ## 📤 Entrega
