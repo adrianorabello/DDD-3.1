@@ -1,4 +1,4 @@
-# 📚 Diciplina Domain Driven Design — Design Tático no DDD
+# 📚 Domain-Driven Design - Aula 3 — Design Tático no DDD
 
 ## 🩺 1) Sobre o Domínio Escolhido
 **Nome do domínio:** **Plano nutricional**  
