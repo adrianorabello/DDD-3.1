@@ -259,10 +259,10 @@ classDiagram
 ---
 
 ## ✅ Checklist de Aceitação
-- [ ] **VOs imutáveis** e com **igualdade por valor** (nada de “string de CPF/Email”).
-- [ ] **Boundary do agregado** pequeno e com **invariantes claras**.
-- [ ] **Domínio rico**: operações do negócio como métodos (evitar `set` aberto).
-- [ ] **Repositório** focado na **AR** (sem `IQueryable`/detalhes de ORM no domínio).
+- ✅ **VOs imutáveis** e com **igualdade por valor** (nada de “string de CPF/Email”).
+- ✅ **Boundary do agregado** pequeno e com **invariantes claras**.
+- ✅ **Domínio rico**: operações do negócio como métodos (evitar `set` aberto).
+- ✅ **Repositório** focado na **AR** (sem `IQueryable`/detalhes de ORM no domínio).
 
 
 ## 📤 Entrega
