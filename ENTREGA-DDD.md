@@ -65,6 +65,9 @@ Evoluir para um sistema **inteligente e adaptativo**, que recomenda e ajusta aut
 | **Autenticação e Autorização**     | Gerencia logins e permissões.                                                | Autenticação                   |
 | **Notificações**                   | Envia alertas de progresso, lembretes e confirmações.                        | Notificações                   |
 
+
+![Diagrama de Contextos](./desenho-bounded-context.png)
+
 ---
 
 ## 🔄 5. Comunicação entre os Bounded Contexts
