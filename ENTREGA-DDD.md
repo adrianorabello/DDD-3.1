@@ -278,7 +278,7 @@ Preencha a tabela justificando cada tipo (identidade vs. imutabilidade).
 **Agregado Principal:** **Plano Nutricional**  
 **AR:** **Plano Nutricional**  
 **Conteúdo interno do agregado (apenas o necessário para consistência local):**  
-- **Paciente**
+- **Paciente** 
 - **Refeição**
 - **Item alimentar**
 - **Meta nutricional**
