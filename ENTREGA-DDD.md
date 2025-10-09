@@ -223,11 +223,6 @@ flowchart LR
 
 ![Diagrama de Contextos](./diagrama-contexto.png)
 
-## Remover antes de enviar:
-## Dicas para Apresentação 
-- Explique cada parte do design, focando no **Core Domain** (o coração do negócio).
-- Justifique por que certos subdomínios foram classificados como Supporting ou Generic.
-- Destaque como a comunicação entre bounded contexts foi pensada para ser escalável.
 ---
 # 📚 Domain-Driven Design - Aula 2 -  Mapeamento de Contextos
 
@@ -251,31 +246,6 @@ flowchart LR
 
 
 ![Alt text](./imagem.png)
-
-
-
-
----
-## Remover antes de enviar
-### **2️⃣ Atividade Prática: Context Mapping no Projeto**
-
-📌 **Objetivo:**  
-Identifique os **Bounded Contexts** do projeto e criar um **Context Map**, definindo as relações entre eles.
-
-📌 **Instruções:**  
-1️⃣ **Escolha um projeto** (real ou fictício). Ou utilize o seu projeto da aula 1. Pode ser um e-commerce, um sistema de saúde, um banco digital.
-
-2️⃣ **Liste os Bounded Contexts** que fazem parte do sistema.
-
-3️⃣ **Defina os relacionamentos** entre os contextos usando os padrões do Context Mapping (**Customer-Supplier, Shared Kernel, Anticorruption Layer, etc.**).
-
-4️⃣ **Crie um diagrama** representando o Context Map.
-
-5️⃣ **Justifique suas escolhas** (por que cada relacionamento foi modelado dessa forma?).
-
-
-
-
 
 # 📚 Domain-Driven Design - Aula 3 - Design Tático no DDD
 
@@ -522,18 +492,3 @@ classDiagram
   PlanoNutricional --> Paciente : por pacienteId
   PlanoNutricional --> Nutricionista : por nutricionistaId
 ```
-
----
-# Remover antes de entregar
-## ✅ Checklist de Aceitação
-- ✅ **VOs imutáveis** e com **igualdade por valor** (nada de “string de CPF/Email”).
-- ✅ **Boundary do agregado** pequeno e com **invariantes claras**.
-- ✅ **Domínio rico**: operações do negócio como métodos (evitar `set` aberto).
-- ✅ **Repositório** focado na **AR** (sem `IQueryable`/detalhes de ORM no domínio).
-
-
-## 📤 Entrega
-
-- **Inclua**: link/imagem do **diagrama** + todas as seções acima preenchidas.
----
-
