@@ -51,6 +51,76 @@ Evoluir para um sistema **inteligente e adaptativo**, que recomenda e ajusta aut
 | **Pagamentos e Faturamento**      | Integração com gateways de pagamento e gestão financeira.           | ⚪ **Generic** |
 | **Notificações**                  | Envio de e-mails, push e SMS para interação e engajamento.          | ⚪ **Generic** |
 
+## 📝 Justificativa da Estrutura de Domínios
+
+A divisão dos domínios da plataforma foi pensada para garantir que o **foco estratégico** permaneça no que realmente diferencia o produto no mercado, ao mesmo tempo em que **domínios de suporte e genéricos** oferecem a base necessária para operação e escalabilidade.
+
+---
+
+### 🎯 Domínio Principal (Core Domain)
+
+1. **Gestão de Planos Nutricionais**  
+   Este é o coração da plataforma, responsável pela **personalização e acompanhamento de dietas**.
+    - Ele concentra a inteligência do negócio, pois conecta dados de clientes, métricas de saúde e preferências alimentares em **planos nutricionais personalizados**.
+    - O diferencial competitivo da solução está exatamente aqui: permitir que nutricionistas criem planos dinâmicos, ajustados em tempo real com base na evolução do cliente.
+    - Por isso, este domínio é considerado **Core Domain**, já que sustenta a proposta de valor do produto e não pode ser delegado ou simplificado.
+
+---
+
+### 🔧 Subdomínios de Suporte
+
+2. **Cadastro e Perfil de Usuário**
+    - Necessário para gerenciar clientes, nutricionistas e fornecedores, garantindo que a plataforma saiba **quem são os atores envolvidos**.
+    - Embora fundamental para o funcionamento, não representa vantagem competitiva direta, por isso é de suporte.
+
+3. **Catálogo de Refeições**
+    - Serve como insumo para a criação de planos, armazenando informações de cardápios, ingredientes e valores nutricionais.
+    - Apoia o Core Domain, mas pode ser adaptado ou até terceirizado no futuro, caso haja integração com bancos de dados externos de nutrição.
+
+4. **Agendamento e Entrega**
+    - Permite a integração logística para levar refeições até o cliente.
+    - Essencial para a experiência completa, mas de suporte, pois a inteligência de negócio está no **plano nutricional** e não na logística em si.
+
+---
+
+### ⚙️ Subdomínios Genéricos
+
+5. **Autenticação e Autorização**
+    - Controle de login e permissões de acesso.
+    - É uma necessidade comum em qualquer sistema, sem especificidade de negócio, podendo ser implementado com soluções prontas (ex.: Keycloak, Auth0).
+
+6. **Pagamento e Faturamento**
+    - Garantia de monetização e integração com gateways de pagamento.
+    - Fundamental para viabilidade financeira, mas genérico, pois não é exclusivo da área de nutrição.
+
+7. **Notificações**
+    - Canal de comunicação para alertas, lembretes e acompanhamento do usuário.
+    - Apesar de aumentar engajamento, não representa um diferencial estratégico, já que pode ser implementado com serviços externos (ex.: Firebase, Twilio).
+
+
+
+| **Origem (Contexto)**                           | **Destino (Contexto)**           | **Tipo de Relacionamento**         | **Explicação / Justificativa**                                                                                                                                                                                 |
+| ----------------------------------------------- | -------------------------------- | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Gestão de Planos Nutricionais (Core Domain)** | **Cadastro e Perfil de Usuário** | 🧩 **Shared Kernel**               | Ambos compartilham entidades essenciais como **Paciente** e **Nutricionista**, garantindo consistência em dados básicos (nome, idade, CRN, objetivos). As alterações nesses dados refletem nos dois contextos. |
+| **Gestão de Planos Nutricionais**               | **Catálogo de Refeições**        | 🔁 **Customer–Supplier**           | O **Core Domain** consome informações do **Catálogo de Refeições**, utilizando cardápios e valores nutricionais para compor os planos alimentares.                                                             |
+| **Gestão de Planos Nutricionais**               | **Agendamento e Entrega**        | 🔁 **Customer–Supplier**           | O **plano nutricional** gera a demanda de refeições que alimenta o contexto de **Entrega**, responsável por coordenar horários e logística de envio.                                                           |
+| **Gestão de Planos Nutricionais**               | **Pagamentos e Faturamento**     | 🧱 **Anti-Corruption Layer (ACL)** | O domínio protege seu modelo interno das variações e complexidade de **gateways de pagamento**, traduzindo apenas as informações financeiras relevantes.                                                       |
+| **Gestão de Planos Nutricionais**               | **Notificações**                 | 📣 **Conformist**                  | O contexto de **Notificações** consome eventos como *PlanoCriado*, *MetaAtingida* e *PlanoFinalizado*, apenas enviando mensagens sem afetar o domínio principal.                                               |
+| **Autenticação e Autorização**                  | **Todos os Contextos**           | 🔒 **Conformist**                  | Todos os contextos confiam e seguem as regras do serviço de autenticação, sem modificar seu comportamento. Atua como um serviço genérico e transversal.                                                        |
+
+
+![Diagrama de Contextos](./contexto.png)
+---
+## ✅ Conclusão
+
+- O  **Core Domain** foca no que é **estratégico e insubstituível**: a **Gestão de Planos Nutricionais**.
+- Os **Subdomínios de Suporte** viabilizam o negócio, mas não são diferenciais competitivos, podendo ser adaptados ou otimizados conforme a evolução da plataforma.
+- Os **Subdomínios Genéricos** oferecem **infraestrutura básica** e podem até ser terceirizados ou substituídos por soluções de mercado, mantendo o time concentrado naquilo que gera valor exclusivo.
+
+Essa separação garante **clareza arquitetural, foco no diferencial de mercado e flexibilidade de evolução**.
+
+
+
 ---
 
 ## 🧭 4. Desenho dos Bounded Contexts
@@ -183,74 +253,6 @@ flowchart LR
 ![Alt text](./imagem.png)
 
 
-
-## 📝 Justificativa da Estrutura de Domínios
-
-A divisão dos domínios da plataforma foi pensada para garantir que o **foco estratégico** permaneça no que realmente diferencia o produto no mercado, ao mesmo tempo em que **domínios de suporte e genéricos** oferecem a base necessária para operação e escalabilidade.
-
----
-
-### 🎯 Domínio Principal (Core Domain)
-
-1. **Gestão de Planos Nutricionais**  
-   Este é o coração da plataforma, responsável pela **personalização e acompanhamento de dietas**.
-    - Ele concentra a inteligência do negócio, pois conecta dados de clientes, métricas de saúde e preferências alimentares em **planos nutricionais personalizados**.
-    - O diferencial competitivo da solução está exatamente aqui: permitir que nutricionistas criem planos dinâmicos, ajustados em tempo real com base na evolução do cliente.
-    - Por isso, este domínio é considerado **Core Domain**, já que sustenta a proposta de valor do produto e não pode ser delegado ou simplificado.
-
----
-
-### 🔧 Subdomínios de Suporte
-
-2. **Cadastro e Perfil de Usuário**
-    - Necessário para gerenciar clientes, nutricionistas e fornecedores, garantindo que a plataforma saiba **quem são os atores envolvidos**.
-    - Embora fundamental para o funcionamento, não representa vantagem competitiva direta, por isso é de suporte.
-
-3. **Catálogo de Refeições**
-    - Serve como insumo para a criação de planos, armazenando informações de cardápios, ingredientes e valores nutricionais.
-    - Apoia o Core Domain, mas pode ser adaptado ou até terceirizado no futuro, caso haja integração com bancos de dados externos de nutrição.
-
-4. **Agendamento e Entrega**
-    - Permite a integração logística para levar refeições até o cliente.
-    - Essencial para a experiência completa, mas de suporte, pois a inteligência de negócio está no **plano nutricional** e não na logística em si.
-
----
-
-### ⚙️ Subdomínios Genéricos
-
-5. **Autenticação e Autorização**
-    - Controle de login e permissões de acesso.
-    - É uma necessidade comum em qualquer sistema, sem especificidade de negócio, podendo ser implementado com soluções prontas (ex.: Keycloak, Auth0).
-
-6. **Pagamento e Faturamento**
-    - Garantia de monetização e integração com gateways de pagamento.
-    - Fundamental para viabilidade financeira, mas genérico, pois não é exclusivo da área de nutrição.
-
-7. **Notificações**
-    - Canal de comunicação para alertas, lembretes e acompanhamento do usuário.
-    - Apesar de aumentar engajamento, não representa um diferencial estratégico, já que pode ser implementado com serviços externos (ex.: Firebase, Twilio).
-
-
-
-| **Origem (Contexto)**                           | **Destino (Contexto)**           | **Tipo de Relacionamento**         | **Explicação / Justificativa**                                                                                                                                                                                 |
-| ----------------------------------------------- | -------------------------------- | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Gestão de Planos Nutricionais (Core Domain)** | **Cadastro e Perfil de Usuário** | 🧩 **Shared Kernel**               | Ambos compartilham entidades essenciais como **Paciente** e **Nutricionista**, garantindo consistência em dados básicos (nome, idade, CRN, objetivos). As alterações nesses dados refletem nos dois contextos. |
-| **Gestão de Planos Nutricionais**               | **Catálogo de Refeições**        | 🔁 **Customer–Supplier**           | O **Core Domain** consome informações do **Catálogo de Refeições**, utilizando cardápios e valores nutricionais para compor os planos alimentares.                                                             |
-| **Gestão de Planos Nutricionais**               | **Agendamento e Entrega**        | 🔁 **Customer–Supplier**           | O **plano nutricional** gera a demanda de refeições que alimenta o contexto de **Entrega**, responsável por coordenar horários e logística de envio.                                                           |
-| **Gestão de Planos Nutricionais**               | **Pagamentos e Faturamento**     | 🧱 **Anti-Corruption Layer (ACL)** | O domínio protege seu modelo interno das variações e complexidade de **gateways de pagamento**, traduzindo apenas as informações financeiras relevantes.                                                       |
-| **Gestão de Planos Nutricionais**               | **Notificações**                 | 📣 **Conformist**                  | O contexto de **Notificações** consome eventos como *PlanoCriado*, *MetaAtingida* e *PlanoFinalizado*, apenas enviando mensagens sem afetar o domínio principal.                                               |
-| **Autenticação e Autorização**                  | **Todos os Contextos**           | 🔒 **Conformist**                  | Todos os contextos confiam e seguem as regras do serviço de autenticação, sem modificar seu comportamento. Atua como um serviço genérico e transversal.                                                        |
-
-
-![Diagrama de Contextos](./contexto.png)
----
-## ✅ Conclusão
-
-- O  **Core Domain** foca no que é **estratégico e insubstituível**: a **Gestão de Planos Nutricionais**.
-- Os **Subdomínios de Suporte** viabilizam o negócio, mas não são diferenciais competitivos, podendo ser adaptados ou otimizados conforme a evolução da plataforma.
-- Os **Subdomínios Genéricos** oferecem **infraestrutura básica** e podem até ser terceirizados ou substituídos por soluções de mercado, mantendo o time concentrado naquilo que gera valor exclusivo.
-
-Essa separação garante **clareza arquitetural, foco no diferencial de mercado e flexibilidade de evolução**.
 
 
 ---
